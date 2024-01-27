@@ -18,11 +18,11 @@ public class BankSavingsAccountInfo {
         SavingsAccount newAccount = new SavingsAccount(balance, apr);
 
         do {
-            menu();
+            displayMenu();
 
             System.out.print("Choose a menu option: ");
             input = menuSelection(keyboard, newAccount);
-            
+
         } while (input.toLowerCase().charAt(0) != 'e');
     }
 
@@ -74,7 +74,7 @@ public class BankSavingsAccountInfo {
         return input;
     }
 
-    private static void menu() {
+    private static void displayMenu() {
         System.out.println("Enter D to make a Deposit");
         System.out.println("Enter W to make a Withdrawal");
         System.out.println("Enter B for your Balance");
