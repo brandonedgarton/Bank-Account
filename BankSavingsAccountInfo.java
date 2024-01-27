@@ -21,50 +21,57 @@ public class BankSavingsAccountInfo {
             menu();
 
             System.out.print("Choose a menu option: ");
-            input = keyboard.nextLine();
-
-            switch (input.toUpperCase().charAt(0)) {
-                case 'D':
-                    System.out.print("Enter the amount you want to Deposit: $");
-                    double amount = keyboard.nextDouble();
-                    keyboard.nextLine();
-                    if (amount < 0) {
-                        System.out.println("Invalid: Must enter positive value");
-                    } else {
-                        newAccount.deposit(amount);
-                    }
-                    break;
-
-                case 'W':
-                    System.out.print("Enter the amount you want to withdraw: $");
-                    amount = keyboard.nextDouble();
-                    keyboard.nextLine();
-                    if (amount < 0) {
-                        System.out.println("Invalid: Must enter positive value");
-                    } else {
-                        newAccount.withdraw(amount);
-                    }
-                    break;
-
-                case 'B':
-                    System.out.println("Your Balance is: " + newAccount.getBalance());
-                    break;
-
-                case 'M':
-                    newAccount.monthlyService();
-                    System.out.println("Your Balance after Monthly processing is: " + newAccount.getBalance());
-                    break;
-
-                case 'E':
-                    System.out.println("Balance: $" + newAccount.getBalance());
-                    System.out.println("Thank You For Your Business!");
-                    break;
-
-                default:
-                    System.out.println("Invalid choice! Try again!");
-                    break;
-            }
+            input = menuSelection(keyboard, newAccount);
+            
         } while (input.toLowerCase().charAt(0) != 'e');
+    }
+
+    private static String menuSelection(Scanner keyboard, SavingsAccount newAccount) {
+        String input;
+        input = keyboard.nextLine();
+
+        switch (input.toUpperCase().charAt(0)) {
+            case 'D':
+                System.out.print("Enter the amount you want to Deposit: $");
+                double amount = keyboard.nextDouble();
+                keyboard.nextLine();
+                if (amount < 0) {
+                    System.out.println("Invalid: Must enter positive value");
+                } else {
+                    newAccount.deposit(amount);
+                }
+                break;
+
+            case 'W':
+                System.out.print("Enter the amount you want to withdraw: $");
+                amount = keyboard.nextDouble();
+                keyboard.nextLine();
+                if (amount < 0) {
+                    System.out.println("Invalid: Must enter positive value");
+                } else {
+                    newAccount.withdraw(amount);
+                }
+                break;
+
+            case 'B':
+                System.out.println("Your Balance is: " + newAccount.getBalance());
+                break;
+
+            case 'M':
+                newAccount.monthlyService();
+                System.out.println("Your Balance after Monthly processing is: " + newAccount.getBalance());
+                break;
+
+            case 'E':
+                System.out.println("Balance: $" + newAccount.getBalance());
+                System.out.println("Thank You For Your Business!");
+                break;
+
+            default:
+                System.out.println("Invalid choice! Try again!");
+                break;
+        }
+        return input;
     }
 
     private static void menu() {
