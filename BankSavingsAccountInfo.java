@@ -2,17 +2,12 @@ import java.util.Scanner;
 
 public class BankSavingsAccountInfo {
     public static void main(String args[]) {
-        double balance;
-        double apr;
         String input = "";
 
         Scanner keyboard = new Scanner(System.in);
 
-        System.out.print("Enter your beginning balance: ");
-        balance = keyboard.nextDouble();
-
-        System.out.print("Enter your interest rate(whole number): ");
-        apr = keyboard.nextDouble();
+        double balance = getDoubleInput("Enter your beginning balance: ", keyboard);
+        double apr = getDoubleInput("Enter your interest rate(whole number): ", keyboard);
         keyboard.nextLine();
 
         SavingsAccount newAccount = new SavingsAccount(balance, apr);
@@ -24,6 +19,16 @@ public class BankSavingsAccountInfo {
             input = menuSelection(keyboard, newAccount);
 
         } while (input.toLowerCase().charAt(0) != 'e');
+    }
+
+    private static double getDoubleInput(String prompt, Scanner scanner){
+        System.out.println(prompt);
+        while(!scanner.hasNextDouble()){
+            System.out.println("Invalid input. Please enter a valid number.");
+            System.out.print(prompt);
+            scanner.nextDouble();
+        }
+        return scanner.nextDouble();
     }
 
     private static String menuSelection(Scanner keyboard, SavingsAccount newAccount) {
