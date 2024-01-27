@@ -32,44 +32,27 @@ public class BankSavingsAccountInfo {
     }
 
     private static String menuSelection(Scanner keyboard, SavingsAccount newAccount) {
-        String input;
-        input = keyboard.nextLine();
+        String input = keyboard.nextLine();
 
         switch (input.toUpperCase().charAt(0)) {
             case 'D':
-                System.out.print("Enter the amount you want to Deposit: $");
-                double amount = keyboard.nextDouble();
-                keyboard.nextLine();
-                if (amount < 0) {
-                    System.out.println("Invalid: Must enter positive value");
-                } else {
-                    newAccount.deposit(amount);
-                }
+                handleDeposit(keyboard, newAccount);
                 break;
 
             case 'W':
-                System.out.print("Enter the amount you want to withdraw: $");
-                amount = keyboard.nextDouble();
-                keyboard.nextLine();
-                if (amount < 0) {
-                    System.out.println("Invalid: Must enter positive value");
-                } else {
-                    newAccount.withdraw(amount);
-                }
+                handleWithdrawal(keyboard, newAccount);
                 break;
 
             case 'B':
-                System.out.println("Your Balance is: " + newAccount.getBalance());
+                displayBalance(newAccount);
                 break;
 
             case 'M':
-                newAccount.monthlyService();
-                System.out.println("Your Balance after Monthly processing is: " + newAccount.getBalance());
+                processMonthly(newAccount);
                 break;
 
             case 'E':
-                System.out.println("Balance: $" + newAccount.getBalance());
-                System.out.println("Thank You For Your Business!");
+                displayExitMessage(newAccount);
                 break;
 
             default:
@@ -77,6 +60,43 @@ public class BankSavingsAccountInfo {
                 break;
         }
         return input;
+    }
+
+    private static void handleDeposit(Scanner keyboard, SavingsAccount newAccount) {
+        double amount = getDoubleInput("Enter the amount you want to Deposit: $", keyboard);
+        keyboard.nextLine();
+        if (amount >= 0) {
+            newAccount.deposit(amount);
+        } else {
+            System.out.println("Invalid: Must enter positive value");
+        }
+    }
+
+    private static void handleWithdrawal(Scanner keyboard, SavingsAccount newAccount) {
+        double amount = getDoubleInput("Enter the amount you want to Withdraw: $", keyboard);
+        keyboard.nextLine();
+        if (amount >= 0) {
+            newAccount.withdraw(amount);
+        } else {
+            System.out.println("Invalid: Must enter positive value");
+        }
+    }
+
+    private static void displayBalance(SavingsAccount newAccount) {
+        System.out.printf("Your Balance is: $%.2f", newAccount.getBalance());
+        System.out.println();
+    }
+
+    private static void processMonthly(SavingsAccount newAccount) {
+        newAccount.monthlyService();
+        System.out.printf("Your Balance after Monthly processing is: $%.2f", newAccount.getBalance());
+        System.out.println();
+    }
+
+    private static void displayExitMessage(SavingsAccount newAccount) {
+        System.out.printf("Balance: $%.2f", newAccount.getBalance());
+        System.out.println();
+        System.out.println("Thank You For Your Business!");
     }
 
     private static void displayMenu() {
